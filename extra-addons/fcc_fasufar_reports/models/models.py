@@ -617,11 +617,12 @@ class ProductTemplate(models.Model):
         domain = []
         for term in search_terms:
             domain += [
-                '|', '|', '|',
+                '|', '|', '|', '|',
                 ('product_tmpl_id.name', operator, term),
                 ('default_code', operator, term),
                 ('product_tmpl_id.pharmaceutical_composition', operator, term),
                 ('product_tmpl_id.batch', operator, term),
+                ('product_tmpl_id.barcode', operator, term),
             ]
         records = self.search(domain + args, limit=limit)
         return records.name_get()
