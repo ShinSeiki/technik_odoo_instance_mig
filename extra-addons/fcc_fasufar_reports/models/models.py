@@ -622,7 +622,7 @@ class ProductTemplate(models.Model):
                 ('default_code', operator, term),
                 ('product_tmpl_id.pharmaceutical_composition', operator, term),
                 ('product_tmpl_id.batch', operator, term),
-                ('product_tmpl_id.barcode', operator, term),
+                ('barcode', operator, term),
             ]
         records = self.search(domain + args, limit=limit)
         return records.name_get()
