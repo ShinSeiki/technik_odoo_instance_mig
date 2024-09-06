@@ -13,6 +13,7 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_item_preview', function(requir
     var KsItemPreview = AbstractField.extend({
 
         supportedFieldTypes: ['integer'],
+        resetOnAnyFieldChange: true,
 
         file_type_magic_word: {
             '/': 'jpg',
@@ -59,7 +60,7 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_item_preview', function(requir
             }
             var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
             var i;
-            for (i = si.length - 1; i > 0; i--) {
+            for (i = si.length-1; i > 0; i--) {
                 if (num >= si[i].value) {
                     break;
                 }
@@ -69,6 +70,49 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_item_preview', function(requir
             } else {
                 return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
             }
+        },
+
+//        Indian format shorthand function
+        ksNumIndianFormatter: function(num, digits) {
+            var negative;
+            var si = [{
+                value: 1,
+                symbol: ""
+            },
+            {
+                value: 1E3,
+                symbol: "Th"
+            },
+            {
+                value: 1E5,
+                symbol: "Lakh"
+            },
+            {
+                value: 1E7,
+                symbol: "Cr"
+            },
+            {
+                value: 1E9,
+                symbol: 'Arab'
+            }
+            ];
+            if (num < 0) {
+                num = Math.abs(num)
+                negative = true
+            }
+            var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+            var i;
+            for (i = si.length-1; i > 0; i--) {
+                if (num >= si[i].value) {
+                    break;
+                }
+            }
+            if (negative) {
+                return "-" + (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+            } else {
+                return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+            }
+
         },
 
         ks_get_dark_color: function(color, opacity, percent) { // deprecated. See below.
@@ -99,6 +143,7 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_item_preview', function(requir
                 icon_color: ks_rgba_icon_color,
                 count_tooltip: field.ks_record_count,
             }
+
             if (field.ks_icon) {
 
                 if (!utils.is_bin_size(field.ks_icon)) {
@@ -120,6 +165,15 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_item_preview', function(requir
                     item_info['name'] = field.ks_model_id.data.display_name;
                 } else {
                     item_info['name'] = "Name";
+                }
+            }
+            if (field.ks_data_format == 'exact'){
+                item_info['count'] = field.ks_record_count;
+            }else{
+                if (field.ks_data_format == 'indian'){
+                    item_info['count'] = self.ksNumIndianFormatter( field.ks_record_count, 1);
+                }else{
+                    item_info['count'] = self.ksNumFormatter(field.ks_record_count, 1);
                 }
             }
 

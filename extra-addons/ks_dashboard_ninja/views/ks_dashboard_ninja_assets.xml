@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets_backend" name="Ks MyDashboard assets" inherit_id="web.assets_backend">
+    <template id="ks_dashboard_ninja_assets_backend" name="Ks MyDashboard assets" inherit_id="web.assets_backend" priority="15">
         <xpath expr="." position="inside">
             <link rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_ninja.scss"/>
             <link rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_ninja_item.css"/>

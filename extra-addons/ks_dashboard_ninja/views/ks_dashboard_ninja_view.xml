@@ -59,6 +59,7 @@
             <field name="tag">ks_dashboard_ninja</field>
             <field name="params" eval="{'ks_dashboard_id': ref('ks_dashboard_ninja.ks_my_default_dashboard_board')}"/>
             <field name="res_model">ks_dashboard_ninja.board</field>
+
         </record>
 
 

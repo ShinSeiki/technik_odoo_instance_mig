@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_line_detailed_operation_tree_expiry" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.expiry</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="tracking" />
+                <field name="expiration_date" attrs="{'invisible': [('tracking', 'not in', ['lot', 'serial'])], 'column_invisible': [('parent.show_lots_text', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_operation_tree_expiry" model="ir.ui.view">
+        <field name="name">stock.move.line.operation.tree.expiry</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="tracking" />
+                <field name="expiration_date" attrs="{'invisible': [('tracking', 'not in', ['lot', 'serial'])]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

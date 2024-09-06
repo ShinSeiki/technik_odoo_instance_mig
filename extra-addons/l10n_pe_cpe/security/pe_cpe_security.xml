@@ -21,11 +21,11 @@
             <field name="category_id" ref="module_pe_cpe"/>
             <field name="implied_ids" eval="[(4, ref('group_pe_cpe_accountant'))]"/>
         </record>
-        <record id="group_pe_cpe_manager" model="res.groups">
+	<record id="group_pe_cpe_manager_root" model="res.groups">
+            <field name="name">Manager Root</field>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
-		
-		<record id="group_plate_invoice" model="res.groups">
+            <record id="group_plate_invoice" model="res.groups">
 	        <field name="name">Plate in Invoice/Sale</field>
 	        <field name="category_id" ref="base.module_category_hidden"/>
 	    </record>

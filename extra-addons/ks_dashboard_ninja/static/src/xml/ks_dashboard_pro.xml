@@ -327,14 +327,20 @@
                                             </td>
                                         </tr>
                                     </t>
-                                    <tr t-if="count">
-                                        <td class="ks_font">
-                                            <span>(
-                                                <t t-esc="count"/>
-                                                records more)
-                                            </span>
-                                        </td>
-                                    </tr>
+<!--                                    <tr t-if="count">-->
+<!--                                        <td class="ks_font">-->
+<!--                                            <span>(-->
+<!--                                                <t t-esc="count"/>-->
+<!--                                                records more)-->
+<!--                                            </span>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr t-else="">-->
+<!--                                        <td class="ks_font">-->
+<!--                                            <span>(Many more records..)-->
+<!--                                            </span>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                 </tbody>
                             </table>
                         </t>
@@ -347,6 +353,22 @@
         </div>
     </t>
 
+     <t t-name="ks_record_more">
+        <tr t-if="count">
+            <td class="ks_font">
+                <span>(
+                    <t t-esc="count"/>
+                    records more)
+                </span>
+            </td>
+        </tr>
+        <tr t-else="">
+            <td class="ks_font">
+                <span>(Many more records...)
+                </span>
+            </td>
+        </tr>
+    </t>
 
     <t t-name="ks_list_view_table">
         <t t-if="list_view_data">
