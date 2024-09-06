@@ -15,5 +15,6 @@ class StockMoveLine(models.Model):
         for move_line in self:
             if move_line.exists() and move_line.lot_id and move_line.expiration_date:
                 move_line.lot_id.expiration_date = move_line.expiration_date
+                move_line.lot_id.life_date = move_line.expiration_date
         return res
         
