@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_kanban_transparent" inherit_id="product.product_template_kanban_view">
+        <xpath expr="//div[hasclass('oe_kanban_global_click')]" position="attributes">
+            <attribute name="class" add="o_product_transparent_kanban" separator=" "/>
+        </xpath>
+    </template>
+</odoo>

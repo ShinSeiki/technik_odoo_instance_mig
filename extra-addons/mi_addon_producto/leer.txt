@@ -1,0 +1,18 @@
+Instala el módulo en Odoo:
+
+Coloca la carpeta mi_addon_producto en la carpeta addons de tu instalación de Odoo.
+Reinicia el servidor de Odoo.
+Ve a Aplicaciones (Apps) en la interfaz de Odoo.
+Actualiza la lista de aplicaciones.
+Busca "Producto Kanban Transparente" e instálalo.
+
+
+Actualiza tu navegador y verifica los cambios en la vista kanban de productos.
+
+Notas importantes:
+
+Asegúrate de que los permisos de los archivos sean correctos para que Odoo pueda leerlos.
+Puede que necesites limpiar la caché del navegador y de Odoo para ver los cambios.
+Si los cambios no se aplican inmediatamente, intenta actualizar el módulo desde la lista de aplicaciones.
+
+Este addon modificará la vista kanban de productos para que tenga un fondo transparente y texto negro. 

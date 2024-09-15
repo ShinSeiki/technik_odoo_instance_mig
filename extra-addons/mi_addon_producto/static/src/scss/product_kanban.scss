@@ -1,0 +1,21 @@
+.o_kanban_view {
+    .o_product_transparent_kanban {
+        background-color: #FFFFFF80 !important;
+        
+        .oe_kanban_details {
+            color: black !important;
+        }
+        
+        .o_kanban_image {
+            background-color: transparent !important;
+        }
+        
+        .o_kanban_record_title {
+            color: black !important;
+        }
+        
+        .o_kanban_record_subtitle {
+            color: black !important;
+        }
+    }
+}
