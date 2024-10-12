@@ -3,7 +3,6 @@
 #   docker compose exec -u root erp bash -c "install -d -o odoo -g odoo /var/lib/odoo/.local"
 #
 
-version: '3.5'
 services:
   db:
     image: postgres:12.4
@@ -25,8 +24,8 @@ services:
     depends_on:
       - db
     ports:
-      - '8069:8069'
-      - "8072:8072" # live chat
+      - '8020:8069'
+      - "7020:8072" # live chat
     restart: always
     volumes:
       - ./odoo-varlib:/var/lib/odoo
@@ -47,15 +46,15 @@ services:
       # - ERP_BUS_URL=http://localhost:8069
       - ERP_ADMIN_PASSWD=suPer-TKs3creT-paSs
       - ERP_ADDONS_PATH=/mnt/extra-addons
-    networks:
-      default:
-      net-web:
-        aliases:
-        - atom-db
-        ipv4_address: 192.168.231.101
+#    networks:
+#      default:
+#      net-web:
+#        aliases:
+#        - atom-db
+#        ipv4_address: 192.168.231.101
 networks:
   default:
     external: false
-  net-web:
-    name: network-web
-    external: false
+#  net-web:
+#    name: network-web
+#    external: false

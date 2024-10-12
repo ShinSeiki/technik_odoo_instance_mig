@@ -1,0 +1,2 @@
+ODOO_DEV_DATABASE=test01
+ODOO_DEV_MODULES=emipro_theme_base
