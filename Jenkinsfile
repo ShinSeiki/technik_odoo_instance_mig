@@ -15,7 +15,6 @@ pipeline {
         dir ("/opt/technik_demo01") {
           sh "git fetch"
           sh "git checkout ${GIT_COMMIT}"
-          sh ". /opt/technik_demo01/.mod_to_update; Actualizando db[${ODOO_DEV_DATABASE}] con los modulos[${ODOO_DEV_MODULES}]"
           script {
             echo "Inicio carga"
             def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
