@@ -25,6 +25,8 @@ pipeline {
             echo "${env.ODOO_DEV_MODULES}"
           }
           sh "echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]"
+          sh 'echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]'
+          sh '. .mod_to_update; echo ${ODOO_DEV_DATABASE}'
           sh '. .mod_to_update; docker compose exec erp bash -c "odoo --no-http --stop-after-init --dev=all -u all -d viniteca_tk1"'
         }
       }
