@@ -16,11 +16,9 @@ pipeline {
           sh "git fetch"
           sh "git checkout ${GIT_COMMIT}"
           script {
-            echo "Inicio carga"
             def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
             env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
             env.ODOO_DEV_MODULES = props.ODOO_DEV_MODULES
-            echo "Fin carga"
             echo "${env.ODOO_DEV_DATABASE}"
             echo "${env.ODOO_DEV_MODULES}"
           }
