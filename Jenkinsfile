@@ -18,6 +18,7 @@ pipeline {
           script {
             echo "Inicio carga"
             loadEnvironmentVariablesFromFile(".mod_to_update")
+            def props = readProperties file: '.mod_to_update'
             echo "Fin carga"
             echo "${env.ODOO_DEV_DATABASE}"
             echo "${env.ODOO_DEV_MODULES}"
