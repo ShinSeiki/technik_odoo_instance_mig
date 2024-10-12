@@ -17,7 +17,8 @@ pipeline {
           sh "git checkout ${GIT_COMMIT}"
           script {
             echo "Inicio carga"
-            load ".mod_to_update"
+            loadEnvironmentVariablesFromFile(".mod_to_update")
+            echo "Fin carga"
             echo "${env.ODOO_DEV_DATABASE}"
             echo "${env.ODOO_DEV_MODULES}"
             sh "source .mod_to_update; Actualizando db[${ODOO_DEV_DATABASE}] con los modulos[${ODOO_DEV_MODULES}]"
