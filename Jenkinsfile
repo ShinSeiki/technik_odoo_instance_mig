@@ -15,7 +15,7 @@ pipeline {
         dir ("/opt/technik_demo01") {
           sh "git fetch"
           sh "git checkout ${GIT_COMMIT}"
-          sh "source .mod_to_update;
+          sh "source .mod_to_update;"
           script {
             sh "source .mod_to_update; Actualizando db[${ODOO_DEV_DATABASE}] con los modulos[${ODOO_DEV_MODULES}]"
             sh "echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]"
