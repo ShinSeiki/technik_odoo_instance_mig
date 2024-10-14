@@ -1,2 +1,2 @@
 ODOO_DEV_DATABASE=test01
-ODOO_DEV_MODULES=pos_on_account
+ODOO_DEV_MODULES=emipro_theme_lazy_load
