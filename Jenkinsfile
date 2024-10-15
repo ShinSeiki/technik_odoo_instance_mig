@@ -19,8 +19,6 @@ pipeline {
           sh """
             LAST_COMMIT=\$(cat .last-commit); 
             echo \${LAST_COMMIT}..${GIT_COMMIT};
-            MODS_UPDATE=\$(git diff --name-only \${LAST_COMMIT}..${GIT_COMMIT} | grep ^extra-addons | sed 's|^extra-addons/||' | awk -F '/' '{ print $1 }' | sort | uniq | paste -sd ',' -)
-            echo \${MODS_UPDATE}
           """
           script {
             def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
