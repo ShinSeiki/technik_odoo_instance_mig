@@ -14,7 +14,7 @@
                                 <field name="name" string="Name"/>
                                 <field name="public"/>
                                 <field name="datas" filename="db_datas"/>
-                                <field name="type" invisible="1"/> <!---->
+                                <field name="type" invisible="1"/>
                                 <field name="store_fname" invisible="1"/>
                                 <field name="db_datas" invisible="1" modifiers="{'invisible': true}"/>
                             </tree>
