@@ -19,9 +19,7 @@ pipeline {
           script {
             def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
             env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
-            env.ODOO_DEV_MODULES = props.ODOO_DEV_MODULES
             echo "${env.ODOO_DEV_DATABASE}"
-            echo "${env.ODOO_DEV_MODULES}"
           }
           sh "echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]"
           sh """
