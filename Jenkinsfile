@@ -16,6 +16,7 @@ pipeline {
           sh "git fetch"
           sh "git checkout ${GIT_COMMIT}"
           sh "LAST_COMMIT=\$(cat /opt/technik_demo01/.last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
+          sh "LAST_COMMIT=\$(cat .last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
           script {
             def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
             env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
