@@ -37,6 +37,7 @@ pipeline {
             fi
           '''
           sh "echo ${GIT_COMMIT} > .last-commit"
+          echo "${GIT_COMMIT} to .last-commit"
         }
       }
     }
