@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     MY_GIT_COMMIT = "${GIT_COMMIT}"
+    ODOO_PATH = "/opt/technik_demo01"
   }
 
   stages {
@@ -12,24 +13,33 @@ pipeline {
 
       steps {
         echo "git commit id: ${GIT_COMMIT}"
-        dir ("/opt/technik_demo01") {
+        dir ("${ODOO_PATH}") {
           sh "git fetch"
           sh "git checkout ${GIT_COMMIT}"
-          sh "LAST_COMMIT=\$(cat /opt/technik_demo01/.last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
+          sh "LAST_COMMIT=\$(cat ${ODOO_PATH}/.last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
           script {
-            def props = readProperties file: '/opt/technik_demo01/.mod_to_update'
+            def props = readProperties file: "${ODOO_PATH}/.mod_to_update"
+            def env.LAST_COMMIT = readFile "${ODOO_PATH}/.last-commit"
             env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
             echo "${env.ODOO_DEV_DATABASE}"
           }
           sh "echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]"
-          sh """
-            LAST_COMMIT=\$(cat .last-commit); 
-            echo \${LAST_COMMIT}..${GIT_COMMIT};
-            MODS_UPDATE=\$(git diff --name-only \${LAST_COMMIT}..${GIT_COMMIT} | grep ^extra-addons | sed 's|^extra-addons/||' | awk -F '/' '{ print \$1 }' | sort | uniq | paste -sd ',' -);
-            echo \${MODS_UPDATE};
-            [ -z "\${MODS_UPDATE}" ] || docker compose exec erp odoo --no-http --stop-after-init --dev=all -u \${MODS_UPDATE} -d ${env.ODOO_DEV_DATABASE}
-          """
-          sh "echo ${GIT_COMMIT} > .last-commit"
+          sh '''
+            echo ${LAST_COMMIT}..${MY_GIT_COMMIT};
+            MODS_UPDATE=$(git diff --name-only ${LAST_COMMIT}..${MY_GIT_COMMIT} | grep ^extra-addons | sed 's|^extra-addons/||' | awk -F '/' '{ print $1 }' | sort | uniq | paste -sd ',' -);
+            echo ${MODS_UPDATE};
+            if [ ! -z "${MODS_UPDATE}" ]; then
+              echo "Actualizando Modulos: ${MODS_UPDATE}"
+              DBS=$(echo "SELECT datname FROM pg_database WHERE datname <> ALL (\'{template0,template1,postgres}\')" | docker compose exec -T erp bash -c "PGPASSWORD=\$ERP_DB_PASSWORD psql -h db -U \$ERP_DB_USER -t -A  -f - template1")
+              echo "${DBS}" | while read line; do
+                if [ ! -z "${line}" ]; then
+                  echo "Actualizando Base de datos: ${line}"
+                  docker compose exec erp odoo --no-http --stop-after-init --dev=all -u ${MODS_UPDATE} -d ${line}
+                fi
+              done
+            fi
+          '''
+          //sh "echo ${GIT_COMMIT} > .last-commit"
           //sh "docker compose exec erp bash -c 'odoo --no-http --stop-after-init --dev=all -u ${env.ODOO_DEV_MODULES} -d ${env.ODOO_DEV_DATABASE}'"
         }
       }
