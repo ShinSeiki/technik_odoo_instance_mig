@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     MY_GIT_COMMIT = "${GIT_COMMIT}"
-    ODOO_PATH = "/opt/technik_demo01"
+    ODOO_PATH = "/opt/technik_demo001"
   }
 
   stages {
