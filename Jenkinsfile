@@ -18,13 +18,9 @@ pipeline {
           sh "git checkout ${GIT_COMMIT}"
           sh "LAST_COMMIT=\$(cat ${ODOO_PATH}/.last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
           script {
-            def props = readProperties file: "${ODOO_PATH}/.mod_to_update"
             def LAST_COMMIT_FILE = readFile "${ODOO_PATH}/.last-commit"
             env.LAST_COMMIT = LAST_COMMIT_FILE
-            env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
-            echo "${env.ODOO_DEV_DATABASE}"
           }
-          sh "echo Actualizando db[${env.ODOO_DEV_DATABASE}] con los modulos[${env.ODOO_DEV_MODULES}]"
           sh '''
             echo ${LAST_COMMIT}..${MY_GIT_COMMIT};
             MODS_UPDATE=$(git diff --name-only ${LAST_COMMIT}..${MY_GIT_COMMIT} | grep ^extra-addons | sed 's|^extra-addons/||' | awk -F '/' '{ print $1 }' | sort | uniq | paste -sd ',' -);
