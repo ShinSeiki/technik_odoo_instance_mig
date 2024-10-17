@@ -19,7 +19,8 @@ pipeline {
           sh "LAST_COMMIT=\$(cat ${ODOO_PATH}/.last-commit); echo \${LAST_COMMIT}..${GIT_COMMIT}"
           script {
             def props = readProperties file: "${ODOO_PATH}/.mod_to_update"
-            def env.LAST_COMMIT = readFile "${ODOO_PATH}/.last-commit"
+            def LAST_COMMIT_FILE = readFile "${ODOO_PATH}/.last-commit"
+            env.LAST_COMMIT = LAST_COMMIT_FILE
             env.ODOO_DEV_DATABASE = props.ODOO_DEV_DATABASE
             echo "${env.ODOO_DEV_DATABASE}"
           }
