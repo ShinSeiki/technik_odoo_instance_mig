@@ -31,7 +31,7 @@ pipeline {
             echo ${MODS_UPDATE};
             if [ ! -z "${MODS_UPDATE}" ]; then
               echo "Actualizando Modulos: ${MODS_UPDATE}"
-              DBS=$(echo "SELECT datname FROM pg_database WHERE datname <> ALL (\'{template0,template1,postgres}\')" | docker compose exec -T erp bash -c "PGPASSWORD=\$ERP_DB_PASSWORD psql -h db -U \$ERP_DB_USER -t -A  -f - template1")
+              DBS=$(echo "SELECT datname FROM pg_database WHERE datname <> ALL (\'{template0,template1,postgres}\')" | docker compose exec -T erp bash -c \'PGPASSWORD=$ERP_DB_PASSWORD psql -h db -U $ERP_DB_USER -t -A  -f - template1\')
               echo "${DBS}" | while read line; do
                 if [ ! -z "${line}" ]; then
                   echo "Actualizando Base de datos: ${line}"
