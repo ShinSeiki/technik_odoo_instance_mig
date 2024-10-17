@@ -3,12 +3,12 @@ pipeline {
 
   environment {
     MY_GIT_COMMIT = "${GIT_COMMIT}"
-    ODOO_PATH = "/opt/technik_demo001"
+    ODOO_PATH = "/opt/technik"
   }
 
   stages {
     stage ('Git Pull') {
-      agent { label 'yesdy' }
+      agent { label 'viniteca' }
       options { skipDefaultCheckout() }
 
       steps {
