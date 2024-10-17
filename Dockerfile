@@ -14,7 +14,7 @@ RUN xmlstarlet ed -L -u "/odoo/data/record/field[@name='active']/@eval" -v "Fals
 #RUN chmod +x /entrypoint.sh
 #RUN ls -l /
 
-#USER odoo
+USER odoo
 
 #ENTRYPOINT [ "/entrypoint.sh" ]
 #CMD ["odoo"]
