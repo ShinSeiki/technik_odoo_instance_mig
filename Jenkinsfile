@@ -36,8 +36,7 @@ pipeline {
               done
             fi
           '''
-          //sh "echo ${GIT_COMMIT} > .last-commit"
-          //sh "docker compose exec erp bash -c 'odoo --no-http --stop-after-init --dev=all -u ${env.ODOO_DEV_MODULES} -d ${env.ODOO_DEV_DATABASE}'"
+          sh "echo ${GIT_COMMIT} > .last-commit"
         }
       }
     }
